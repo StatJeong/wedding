@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="format-detection" content="telephone=no">
+
+<!-- 카톡·문자 링크 미리보기 (이름·날짜를 바꾸면 여기도 같이 수정) -->
+<title>신랑이름 ♥ 신부이름 결혼합니다</title>
+<meta property="og:title" content="신랑이름 ♥ 신부이름 결혼합니다">
+<meta property="og:description" content="2027년 0월 0일 토요일 낮 12시 · 예식장 이름">
+<meta property="og:image" content="https://statjeong.github.io/wedding/images/og.jpg">
+<meta property="og:url" content="https://statjeong.github.io/wedding/">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#f6f2ec; --paper:#fffdf9; --ink:#3d3530; --sub:#8a7e74;
+    --line:#e6ddd2; --accent:#a8836a; --accent-soft:#f1e7dd;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",sans-serif;font-weight:300;line-height:1.8;word-break:keep-all}
+  .wrap{max-width:440px;margin:0 auto;background:var(--paper);min-height:100vh;overflow:hidden}
+  section{padding:64px 28px;text-align:center}
+  .serif{font-family:"Gowun Batang",serif}
+  .label{font-size:11px;letter-spacing:.35em;color:var(--accent);margin-bottom:14px}
+  h2{font-family:"Gowun Batang",serif;font-weight:400;font-size:20px;margin-bottom:28px}
+  img{display:block;max-width:100%}
+
+  /* 표지 */
+  .cover{padding:0}
+  .cover-top{padding:48px 24px 28px}
+  .cover-date{font-size:13px;letter-spacing:.3em;color:var(--sub)}
+  .cover-names{font-family:"Gowun Batang",serif;font-size:26px;margin:14px 0 4px}
+  .cover-names .and{color:var(--accent);margin:0 10px;font-size:18px}
+  .cover img{width:100%;aspect-ratio:3/4;object-fit:cover}
+  .cover-bottom{padding:28px 24px 8px;font-size:14px;color:var(--sub)}
+
+  /* 인사말 */
+  .greeting p{font-family:"Gowun Batang",serif;font-size:15px;line-height:2.1;white-space:pre-line}
+  .family{margin-top:40px;font-size:15px;line-height:2.2}
+  .family b{font-weight:500}
+  .family .rel{color:var(--sub);font-size:13px;margin:0 4px}
+  .divider{width:1px;height:40px;background:var(--line);margin:40px auto 0}
+
+  /* 달력 */
+  .when{background:var(--bg)}
+  .when-text{font-size:15px;margin-bottom:28px}
+  .cal{background:var(--paper);border-radius:16px;padding:22px 16px;max-width:320px;margin:0 auto}
+  .cal-month{font-family:"Gowun Batang",serif;font-size:17px;margin-bottom:14px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:6px;font-size:13px}
+  .cal-grid .h{color:var(--sub);font-size:11px;padding-bottom:6px}
+  .cal-grid .sun{color:#c96b6b}
+  .cal-grid div{height:34px;display:flex;align-items:center;justify-content:center}
+  .cal-grid .day.on{background:var(--accent);color:#fff;border-radius:50%;width:34px;margin:0 auto;font-weight:500}
+  .dday{margin-top:24px;font-size:14px;color:var(--sub)}
+  .dday b{color:var(--accent);font-weight:500}
+
+  /* 갤러리 */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+  .gallery-grid img{width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer}
+  .lightbox{position:fixed;inset:0;background:rgba(20,16,14,.94);display:none;align-items:center;justify-content:center;z-index:50;touch-action:pan-y}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:100%;max-height:86vh;object-fit:contain}
+  .lb-btn{position:absolute;background:none;border:0;color:#fff;font-size:28px;padding:16px;cursor:pointer;opacity:.85}
+  .lb-close{top:8px;right:8px}
+  .lb-prev{left:0;top:50%;transform:translateY(-50%)}
+  .lb-next{right:0;top:50%;transform:translateY(-50%)}
+  .lb-count{position:absolute;bottom:20px;color:#ddd;font-size:13px;letter-spacing:.1em}
+
+  /* 오시는 길 */
+  .venue-name{font-family:"Gowun Batang",serif;font-size:18px}
+  .venue-addr{font-size:14px;color:var(--sub);margin:6px 0 20px}
+  .btn-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:13px;text-decoration:none;cursor:pointer;min-width:96px}
+  .btn:active{background:var(--accent-soft)}
+  .transport{text-align:left;margin-top:32px;font-size:14px}
+  .transport dt{font-weight:500;margin-top:16px;color:var(--accent);font-size:13px}
+  .transport dd{white-space:pre-line;color:var(--ink)}
+
+  /* 마음 전하실 곳 */
+  .account{background:var(--bg)}
+  .acc-desc{font-size:14px;color:var(--sub);margin-bottom:24px}
+  .acc-group{background:var(--paper);border-radius:12px;margin-bottom:10px;text-align:left;overflow:hidden}
+  .acc-head{width:100%;background:none;border:0;font:inherit;font-size:15px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:var(--ink)}
+  .acc-head::after{content:"＋";color:var(--sub);font-size:14px}
+  .acc-group.open .acc-head::after{content:"－"}
+  .acc-body{display:none;border-top:1px solid var(--line)}
+  .acc-group.open .acc-body{display:block}
+  .acc-item{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;gap:10px}
+  .acc-item + .acc-item{border-top:1px solid var(--line)}
+  .acc-info{font-size:13px;line-height:1.6}
+  .acc-info .who{font-weight:500;font-size:14px}
+  .acc-info .num{color:var(--sub)}
+  .copy{flex-shrink:0;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:7px 12px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
+
+  /* 마무리 */
+  .closing p{font-family:"Gowun Batang",serif;font-size:15px;color:var(--sub)}
+  .closing .btn-row{margin-top:28px}
+  footer{padding:24px;text-align:center;font-size:11px;color:#bbb0a5}
+
+  .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:rgba(50,42,38,.92);color:#fff;font-size:13px;padding:10px 18px;border-radius:20px;opacity:0;transition:.25s;pointer-events:none;z-index:60}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .fade{opacity:0;transform:translateY(16px);transition:opacity .8s,transform .8s}
+  .fade.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 표지 -->
+  <section class="cover">
+    <div class="cover-top">
+      <div class="cover-date" id="coverDate"></div>
+      <div class="cover-names" id="coverNames"></div>
+    </div>
+    <img src="images/main.jpg" alt="대표 사진">
+    <div class="cover-bottom" id="coverPlace"></div>
+  </section>
+
+  <!-- 인사말 -->
+  <section class="greeting fade">
+    <div class="label">INVITATION</div>
+    <h2>소중한 분들을 초대합니다</h2>
+    <p id="greetingText"></p>
+    <div class="family" id="family"></div>
+  </section>
+
+  <!-- 일시 -->
+  <section class="when fade">
+    <div class="label">WEDDING DAY</div>
+    <div class="when-text" id="whenText"></div>
+    <div class="cal">
+      <div class="cal-month" id="calMonth"></div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+    <div class="dday" id="dday"></div>
+  </section>
+
+  <!-- 갤러리 -->
+  <section class="gallery fade">
+    <div class="label">GALLERY</div>
+    <h2>우리의 순간</h2>
+    <div class="gallery-grid" id="gallery"></div>
+  </section>
+
+  <!-- 오시는 길 -->
+  <section class="location fade">
+    <div class="label">LOCATION</div>
+    <h2>오시는 길</h2>
+    <div class="venue-name" id="venueName"></div>
+    <div class="venue-addr" id="venueAddr"></div>
+    <div class="btn-row">
+      <a class="btn" id="naverMap" target="_blank" rel="noopener">네이버지도</a>
+      <a class="btn" id="kakaoMap" target="_blank" rel="noopener">카카오맵</a>
+      <button class="btn" id="copyAddr">주소 복사</button>
+    </div>
+    <dl class="transport" id="transport"></dl>
+  </section>
+
+  <!-- 마음 전하실 곳 -->
+  <section class="account fade">
+    <div class="label">ACCOUNT</div>
+    <h2>마음 전하실 곳</h2>
+    <p class="acc-desc">참석이 어려우신 분들을 위해<br>계좌번호를 기재하였습니다.</p>
+    <div id="accounts"></div>
+  </section>
+
+  <!-- 마무리 -->
+  <section class="closing fade">
+    <p>함께해 주셔서 감사합니다</p>
+    <div class="btn-row">
+      <button class="btn" id="shareBtn">청첩장 공유하기</button>
+    </div>
+  </section>
+
+  <footer>© <span id="footNames"></span></footer>
+</div>
+
+<!-- 사진 크게 보기 -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="닫기">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="이전">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="다음">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================================
+   ▼▼▼ 여기만 고치면 됩니다 ▼▼▼
+   (따옴표 " " 안의 글자만 바꾸세요. 쉼표·괄호는 그대로 두세요.)
+   ========================================================== */
+const INFO = {
+  groom: { name: "신랑이름", father: "아버지", mother: "어머니", order: "장남" },
+  bride: { name: "신부이름", father: "아버지", mother: "어머니", order: "장녀" },
+
+  // 예식 일시: 연, 월, 일, 시, 분 (24시간제)
+  date: { year: 2027, month: 1, day: 1, hour: 12, minute: 0 },
+
+  venue: {
+    name: "예식장 이름 0층 OO홀",
+    address: "서울시 OO구 OO로 00",
+    searchKeyword: "예식장 이름"   // 지도 앱에서 검색될 이름
+  },
+
+  greeting: `서로가 마주보며 다져온 사랑을
+이제 함께 한 곳을 바라보며
+걸어가려 합니다.
+
+저희 두 사람의 새로운 시작을
+축복해 주시면 감사하겠습니다.`,
+
+  // 교통 안내 (필요 없는 항목은 줄째로 지워도 됩니다)
+  transport: [
+    { title: "지하철", text: "O호선 OO역 0번 출구 도보 5분" },
+    { title: "버스",   text: "OO 정류장 하차\n간선 000, 000 / 지선 0000" },
+    { title: "주차",   text: "건물 내 주차장 2시간 무료" }
+  ],
+
+  // 계좌번호
+  accounts: {
+    groom: [
+      { who: "신랑 신랑이름", bank: "OO은행", number: "000-0000-0000" },
+      { who: "아버지 OOO",   bank: "OO은행", number: "000-0000-0000" },
+      { who: "어머니 OOO",   bank: "OO은행", number: "000-0000-0000" }
+    ],
+    bride: [
+      { who: "신부 신부이름", bank: "OO은행", number: "000-0000-0000" },
+      { who: "아버지 OOO",   bank: "OO은행", number: "000-0000-0000" },
+      { who: "어머니 OOO",   bank: "OO은행", number: "000-0000-0000" }
+    ]
+  },
+
+  // 갤러리 사진 (images 폴더 안의 파일 이름). 늘리거나 줄여도 됩니다.
+  photos: ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg"]
+};
+/* ==========================================================
+   ▲▲▲ 여기까지 ▲▲▲  아래는 건드리지 않아도 됩니다
+   ========================================================== */
+
+const $ = id => document.getElementById(id);
+const g = INFO.groom, b = INFO.bride, d = INFO.date;
+const wDate = new Date(d.year, d.month - 1, d.day, d.hour, d.minute);
+const WEEK = ["일","월","화","수","목","금","토"];
+const ampm = d.hour < 12 ? "오전" : (d.hour === 12 ? "낮" : "오후");
+const h12 = d.hour > 12 ? d.hour - 12 : d.hour;
+const timeStr = `${ampm} ${h12}시${d.minute ? " " + d.minute + "분" : ""}`;
+
+/* 표지 */
+$("coverDate").textContent = `${d.year} . ${String(d.month).padStart(2,"0")} . ${String(d.day).padStart(2,"0")}`;
+$("coverNames").innerHTML = `${g.name}<span class="and">&amp;</span>${b.name}`;
+$("coverPlace").innerHTML = `${d.year}년 ${d.month}월 ${d.day}일 ${WEEK[wDate.getDay()]}요일 ${timeStr}<br>${INFO.venue.name}`;
+$("footNames").textContent = `${g.name} & ${b.name}`;
+
+/* 인사말 */
+$("greetingText").textContent = INFO.greeting;
+$("family").innerHTML =
+  `${g.father} · ${g.mother}<span class="rel">의 ${g.order}</span><b>${g.name}</b><br>` +
+  `${b.father} · ${b.mother}<span class="rel">의 ${b.order}</span><b>${b.name}</b>`;
+
+/* 일시·달력 */
+$("whenText").textContent = `${d.year}년 ${d.month}월 ${d.day}일 ${WEEK[wDate.getDay()]}요일 ${timeStr}`;
+$("calMonth").textContent = `${d.year}. ${d.month}`;
+(function(){
+  const grid = $("calGrid");
+  WEEK.forEach((w,i)=> grid.insertAdjacentHTML("beforeend",`<div class="h ${i===0?"sun":""}">${w}</div>`));
+  const first = new Date(d.year, d.month-1, 1).getDay();
+  const last = new Date(d.year, d.month, 0).getDate();
+  for(let i=0;i<first;i++) grid.insertAdjacentHTML("beforeend","<div></div>");
+  for(let day=1; day<=last; day++){
+    const dow = (first + day - 1) % 7;
+    grid.insertAdjacentHTML("beforeend",
+      `<div class="day ${day===d.day?"on":""} ${dow===0&&day!==d.day?"sun":""}">${day}</div>`);
+  }
+})();
+(function(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const target = new Date(d.year, d.month-1, d.day);
+  const diff = Math.round((target - today) / 86400000);
+  $("dday").innerHTML = diff > 0 ? `${g.name} ♥ ${b.name}의 결혼식이 <b>${diff}일</b> 남았습니다`
+                     : diff === 0 ? `<b>오늘</b> 결혼합니다` : `함께해 주셔서 감사합니다`;
+})();
+
+/* 갤러리 */
+const photos = INFO.photos.map(p => "images/" + p);
+photos.forEach((src,i)=> $("gallery").insertAdjacentHTML("beforeend",
+  `<img src="${src}" alt="사진 ${i+1}" loading="lazy" data-i="${i}">`));
+let cur = 0;
+const lb = $("lightbox");
+function show(i){ cur = (i + photos.length) % photos.length; $("lbImg").src = photos[cur]; $("lbCount").textContent = `${cur+1} / ${photos.length}`; }
+$("gallery").addEventListener("click", e => { if(e.target.dataset.i){ show(+e.target.dataset.i); lb.classList.add("open"); document.body.style.overflow="hidden"; }});
+function closeLb(){ lb.classList.remove("open"); document.body.style.overflow=""; }
+$("lbClose").onclick = closeLb;
+$("lbPrev").onclick = e => { e.stopPropagation(); show(cur-1); };
+$("lbNext").onclick = e => { e.stopPropagation(); show(cur+1); };
+lb.addEventListener("click", e => { if(e.target === lb) closeLb(); });
+let sx = null;
+lb.addEventListener("touchstart", e => sx = e.touches[0].clientX, {passive:true});
+lb.addEventListener("touchend", e => { if(sx===null) return; const dx = e.changedTouches[0].clientX - sx; if(Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); sx = null; });
+
+/* 오시는 길 */
+$("venueName").textContent = INFO.venue.name;
+$("venueAddr").textContent = INFO.venue.address;
+$("naverMap").href = "https://map.naver.com/p/search/" + encodeURIComponent(INFO.venue.searchKeyword);
+$("kakaoMap").href = "https://map.kakao.com/link/search/" + encodeURIComponent(INFO.venue.searchKeyword);
+$("copyAddr").onclick = () => copy(INFO.venue.address, "주소가 복사되었습니다");
+INFO.transport.forEach(t => $("transport").insertAdjacentHTML("beforeend", `<dt>${t.title}</dt><dd>${t.text}</dd>`));
+
+/* 계좌 */
+function accGroup(title, list){
+  const items = list.map(a => `
+    <div class="acc-item">
+      <div class="acc-info"><div class="who">${a.who}</div><div class="num">${a.bank} ${a.number}</div></div>
+      <button class="copy" data-copy="${a.bank} ${a.number}">복사</button>
+    </div>`).join("");
+  return `<div class="acc-group"><button class="acc-head">${title}</button><div class="acc-body">${items}</div></div>`;
+}
+$("accounts").innerHTML = accGroup("신랑측 계좌번호", INFO.accounts.groom) + accGroup("신부측 계좌번호", INFO.accounts.bride);
+$("accounts").addEventListener("click", e => {
+  if(e.target.classList.contains("acc-head")) e.target.parentElement.classList.toggle("open");
+  if(e.target.dataset.copy) copy(e.target.dataset.copy, "계좌번호가 복사되었습니다");
+});
+
+/* 공유 */
+$("shareBtn").onclick = async () => {
+  const data = { title: document.title, url: location.href };
+  if(navigator.share){ try{ await navigator.share(data); }catch(_){} }
+  else copy(location.href, "링크가 복사되었습니다");
+};
+
+/* 공통: 복사·토스트 */
+function copy(text, msg){
+  const done = () => toast(msg);
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallback(text, done));
+  } else fallback(text, done);
+}
+function fallback(text, done){
+  const t = document.createElement("textarea"); t.value = text; t.style.position="fixed"; t.style.opacity="0";
+  document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); }catch(_){} t.remove(); done();
+}
+let tt;
+function toast(msg){ const el = $("toast"); el.textContent = msg; el.classList.add("show"); clearTimeout(tt); tt = setTimeout(()=>el.classList.remove("show"), 1800); }
+
+/* 스크롤 시 서서히 나타나기 */
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll(".fade").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
