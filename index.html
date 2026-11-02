@@ -103,6 +103,9 @@
   /* 마무리 */
   .closing p{font-family:"Gowun Batang",serif;font-size:15px;color:var(--sub)}
   .closing .btn-row{margin-top:28px}
+  .map-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:360px;margin:0 auto}
+  .map-row .btn{min-width:0;padding:11px 6px}
+  .addr-copy{margin-top:12px;background:none;border:0;font:inherit;font-size:13px;color:var(--sub);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px}
   footer{padding:24px;text-align:center;font-size:11px;color:#bbb0a5}
 
   .bgm-btn{position:fixed;top:14px;right:max(14px,calc(50% - 220px + 14px));z-index:40;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,253,249,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--accent);padding:0}
@@ -164,10 +167,13 @@
     <h2>오시는 길</h2>
     <div class="venue-name" id="venueName"></div>
     <div class="venue-addr" id="venueAddr"></div>
-    <div class="btn-row">
+    <div class="map-row">
       <a class="btn" id="naverMap" target="_blank" rel="noopener">네이버지도</a>
       <a class="btn" id="kakaoMap" target="_blank" rel="noopener">카카오맵</a>
-      <button class="btn" id="copyAddr">주소 복사</button>
+      <a class="btn" id="tmap" href="#">티맵</a>
+    </div>
+    <div>
+      <button class="addr-copy" id="copyAddr">주소 복사하기</button>
     </div>
     <dl class="transport" id="transport"></dl>
   </section>
@@ -327,6 +333,22 @@ $("venueAddr").textContent = INFO.venue.address;
 $("naverMap").href = "https://map.naver.com/p/search/" + encodeURIComponent(INFO.venue.searchKeyword);
 $("kakaoMap").href = "https://map.kakao.com/link/search/" + encodeURIComponent(INFO.venue.searchKeyword);
 $("copyAddr").onclick = () => copy(INFO.venue.address, "주소가 복사되었습니다");
+/* 티맵: 앱이 있으면 앱으로 열고, 없으면 스토어로 */
+$("tmap").onclick = (e) => {
+  e.preventDefault();
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/i.test(ua), isAndroid = /Android/i.test(ua);
+  if (!isIOS && !isAndroid) { toast("티맵은 휴대폰에서 열 수 있어요"); return; }
+  const store = isIOS ? "https://apps.apple.com/kr/app/id431589174" : "market://details?id=com.skt.tmap.ku";
+  let left = false;
+  const onHide = () => { if (document.hidden) left = true; };
+  document.addEventListener("visibilitychange", onHide);
+  location.href = "tmap://search?name=" + encodeURIComponent(INFO.venue.searchKeyword);
+  setTimeout(() => {
+    document.removeEventListener("visibilitychange", onHide);
+    if (!left && !document.hidden) location.href = store;
+  }, 1600);
+};
 INFO.transport.forEach(t => $("transport").insertAdjacentHTML("beforeend", `<dt>${t.title}</dt><dd>${t.text}</dd>`));
 
 /* 계좌 */
