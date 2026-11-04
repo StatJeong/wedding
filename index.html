@@ -43,12 +43,11 @@
   .cover-bottom{padding:28px 24px 8px;font-size:14px;color:var(--sub)}
 
   /* 인사말 */
-  .greeting .gt{font-family:"Gowun Batang",serif;font-size:15px;line-height:2.1}
+  .greeting .gt{font-family:"Gowun Batang",serif;font-size:15px;line-height:2.1;width:fit-content;max-width:100%;margin:0 auto;text-align:left}
   .greeting .gt .ln{min-height:2.1em}
-  .greeting .gt .acro{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:baseline;white-space:pre}
-  .greeting .gt .acro .l{text-align:right}
-  .greeting .gt .acro .r{text-align:left}
-  .greeting .gt .acro b{font-size:1.4em;line-height:1;font-weight:700;color:var(--accent)}
+  .greeting .gt .acro{display:flex;align-items:baseline}
+  .greeting .gt .acro .r{flex:1}
+  .greeting .gt b{font-weight:700;color:#9E5A63}
   .family{margin-top:40px;font-size:15px;line-height:2.2}
   .family b{font-weight:500}
   .family .rel{color:var(--sub);font-size:13px;margin:0 4px}
@@ -235,15 +234,17 @@ const INFO = {
     searchKeyword: "더베뉴지서울"   // 지도 앱에서 검색될 이름
   },
 
-  // [ ] 안의 글자는 크게 강조되고, 강조 글자끼리 세로 한 줄로 정렬됩니다.
-  greeting: `스물다섯, 스물하나에 만나
-이제 [영]원을 약속하는
-저희 [두] 사람,
-서로에게 [주]는 사랑이
-늘 [은]은히 빛나도록
+  // [영]처럼 줄 맨 앞의 [ ] 글자와 {은}처럼 { } 안의 글자는 이름 글자로 강조됩니다.
+  greeting: `[영]원히 함께할 편안한 사람을 만났습니다.
+[두] 손 꼭 잡고 걸어온 6년의 시간,
+[주]님의 {은}혜 아래 새로운 출발을 합니다.
+
+곁에 있어 감사한 사람과 함께
+서로를 더 아끼고 섬기며
 예쁘게 살아가겠습니다.
 
-따뜻한 마음으로 축복해 주시면
+저희의 소중한 첫걸음을 오셔서
+따뜻하게 축복해 주시면
 감사하겠습니다.`,
 
   // 교통 안내 (필요 없는 항목은 줄째로 지워도 됩니다)
@@ -294,9 +295,10 @@ $("footNames").textContent = `${g.name} & ${b.name}`;
 (function(){
   const esc = t => t.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   $("greetingText").innerHTML = INFO.greeting.split("\n").map(line => {
-    const m = line.match(/^(.*?)\[(.)\](.*)$/);
-    if (m) return `<div class="acro"><span class="l">${esc(m[1])}</span><b>${esc(m[2])}</b><span class="r">${esc(m[3])}</span></div>`;
-    return `<div class="ln">${esc(line)}</div>`;
+    let t = esc(line).replace(/\{(.)\}/g, "<b>$1</b>");
+    const m = t.match(/^\[(.)\](.*)$/);
+    if (m) return `<div class="acro"><b>${m[1]}</b><span class="r">${m[2].replace(/^ /, "&nbsp;")}</span></div>`;
+    return `<div class="ln">${t}</div>`;
   }).join("");
 })();
 $("family").innerHTML =
