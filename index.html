@@ -32,6 +32,9 @@
   .label{font-size:11px;letter-spacing:.35em;color:var(--accent);margin-bottom:14px}
   h2{font-family:"Gowun Batang",serif;font-weight:400;font-size:20px;margin-bottom:28px}
   img{display:block;max-width:100%}
+  /* 사진 길게 눌러 저장·드래그 막기 */
+  img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+  .cover img,.gallery-strip img{pointer-events:none}
 
   /* 표지 */
   .cover{padding:0}
@@ -69,7 +72,7 @@
   /* 갤러리 */
   .gallery-strip{position:relative;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -28px;padding:0 28px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .gallery-strip::-webkit-scrollbar{display:none}
-  .gallery-strip img{flex:none;height:min(340px,48vh);width:auto;scroll-snap-align:center;border-radius:4px;background:var(--accent-soft);user-select:none;-webkit-user-drag:none}
+  .gallery-strip img{flex:none;height:min(280px,40vh);width:auto;scroll-snap-align:center;border-radius:4px;background:var(--accent-soft);user-select:none;-webkit-user-drag:none}
   .gal-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:16px;font-size:13px;color:var(--sub);letter-spacing:.08em}
   .gal-nav button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);font-size:20px;line-height:1;cursor:pointer}
   .gal-hint{margin-top:6px;font-size:12px;color:var(--sub)}
@@ -417,6 +420,11 @@ $("shareBtn").onclick = async () => {
     else if(wasPlaying && !userMuted) play();
   });
 })();
+
+/* 사진 저장 막기: 길게 누르기·우클릭·끌어서 저장 */
+["contextmenu","dragstart"].forEach(t => document.addEventListener(t, e => {
+  if (e.target.tagName === "IMG") e.preventDefault();
+}));
 
 /* 공통: 복사·토스트 */
 function copy(text, msg){
