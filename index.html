@@ -68,7 +68,7 @@
 
   /* 갤러리 */
   .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-  .gallery-grid img{width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer}
+  .gallery-grid img{width:100%;aspect-ratio:1;object-fit:cover;object-position:50% 22%;cursor:pointer;background:var(--accent-soft)}
   .lightbox{position:fixed;inset:0;background:rgba(20,16,14,.94);display:none;align-items:center;justify-content:center;z-index:50;touch-action:pan-y}
   .lightbox.open{display:flex}
   .lightbox img{max-width:100%;max-height:86vh;object-fit:contain}
@@ -271,7 +271,8 @@ const INFO = {
   // 배경음악: true = 사용, false = 끄기
   music: true,
 
-  photos: ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg"]
+  // 큰 사진은 images/, 목록용 작은 사진은 images/thumb/ 에 같은 이름으로 넣으세요.
+  photos: ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg","photo7.jpg","photo8.jpg","photo9.jpg"]
 };
 /* ==========================================================
    ▲▲▲ 여기까지 ▲▲▲  아래는 건드리지 않아도 됩니다
@@ -331,7 +332,7 @@ $("calMonth").textContent = `${d.year}. ${d.month}`;
 /* 갤러리 */
 const photos = INFO.photos.map(p => "images/" + p);
 photos.forEach((src,i)=> $("gallery").insertAdjacentHTML("beforeend",
-  `<img src="${src}" alt="사진 ${i+1}" loading="lazy" data-i="${i}">`));
+  `<img src="images/thumb/${INFO.photos[i]}" alt="사진 ${i+1}" loading="lazy" data-i="${i}" onerror="this.onerror=null;this.src='${src}'">`));
 let cur = 0;
 const lb = $("lightbox");
 function show(i){ cur = (i + photos.length) % photos.length; $("lbImg").src = photos[cur]; $("lbCount").textContent = `${cur+1} / ${photos.length}`; }
