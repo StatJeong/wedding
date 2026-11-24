@@ -34,7 +34,8 @@
   img{display:block;max-width:100%}
   /* 사진 길게 눌러 저장·드래그 막기 */
   img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
-  .cover img,.gallery-strip img{pointer-events:none}
+  .cover img{pointer-events:none}
+  .gallery-strip img{cursor:pointer}
 
   /* 표지 */
   .cover{padding:0}
@@ -118,6 +119,15 @@
   .bgm-btn.muted .off{display:block}
   .bgm-btn:not(.muted){animation:pulse 2.4s ease-in-out infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(168,131,106,.25)}50%{box-shadow:0 0 0 6px rgba(168,131,106,0)}}
+  /* 전체화면 보기 (확대 불가) */
+  .viewer{position:fixed;inset:0;background:#141010;display:none;align-items:center;justify-content:center;z-index:70;touch-action:none;overscroll-behavior:contain;user-select:none;-webkit-user-select:none}
+  .viewer.open{display:flex}
+  .viewer img{max-width:100%;max-height:100%;object-fit:contain;pointer-events:none}
+  .v-btn{position:absolute;background:none;border:0;color:#fff;opacity:.85;cursor:pointer;width:48px;height:48px;font-size:26px;line-height:1}
+  .v-close{top:max(10px,env(safe-area-inset-top));right:8px}
+  .v-prev{left:2px;top:50%;transform:translateY(-50%);font-size:34px}
+  .v-next{right:2px;top:50%;transform:translateY(-50%);font-size:34px}
+  .v-count{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));color:#ddd;font-size:13px;letter-spacing:.1em}
   .toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:rgba(50,42,38,.92);color:#fff;font-size:13px;padding:10px 18px;border-radius:20px;opacity:0;transition:.25s;pointer-events:none;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -211,6 +221,13 @@
   <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
 </button>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <button class="v-btn v-close" id="vClose" aria-label="닫기">✕</button>
+  <button class="v-btn v-prev" id="vPrev" aria-label="이전 사진">‹</button>
+  <img id="vImg" alt="">
+  <button class="v-btn v-next" id="vNext" aria-label="다음 사진">›</button>
+  <div class="v-count" id="vCount"></div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -418,6 +435,40 @@ $("shareBtn").onclick = async () => {
   document.addEventListener("visibilitychange", () => {
     if(document.hidden){ wasPlaying = !audio.paused; audio.pause(); }
     else if(wasPlaying && !userMuted) play();
+  });
+})();
+
+/* 사진 누르면 전체화면 (확대 불가) */
+(function(){
+  const v = $("viewer"), vi = $("vImg"), total = INFO.photos.length; let idx = 0;
+  const show = i => { idx = (i + total) % total; vi.src = "images/" + INFO.photos[idx]; vi.alt = `사진 ${idx+1}`; $("vCount").textContent = `${idx+1} / ${total}`; };
+  const open = i => { show(i); v.classList.add("open"); document.body.style.overflow = "hidden"; };
+  const close = () => { v.classList.remove("open"); document.body.style.overflow = ""; };
+  $("gallery").addEventListener("click", e => {
+    if (e.target.tagName !== "IMG") return;
+    open([...$("gallery").querySelectorAll("img")].indexOf(e.target));
+  });
+  $("vClose").onclick = close;
+  $("vPrev").onclick = e => { e.stopPropagation(); show(idx - 1); };
+  $("vNext").onclick = e => { e.stopPropagation(); show(idx + 1); };
+  v.addEventListener("click", e => { if (e.target === v) close(); });
+  // 한 손가락으로 좌우 넘기기 / 아래로 내리면 닫기
+  let sx = null, sy = null;
+  v.addEventListener("touchstart", e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } else { sx = null; } }, { passive: true });
+  v.addEventListener("touchend", e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) show(idx + (dx < 0 ? 1 : -1));
+    else if (dy > 90) close();
+    sx = null;
+  });
+  // 확대 막기: 두 손가락 벌리기, 두 번 탭, 아이폰 제스처, Ctrl+휠
+  v.addEventListener("touchmove", e => { e.preventDefault(); }, { passive: false });
+  ["gesturestart", "gesturechange", "dblclick"].forEach(t => v.addEventListener(t, e => e.preventDefault()));
+  v.addEventListener("wheel", e => { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+  document.addEventListener("keydown", e => {
+    if (!v.classList.contains("open")) return;
+    if (e.key === "Escape") close(); else if (e.key === "ArrowLeft") show(idx - 1); else if (e.key === "ArrowRight") show(idx + 1);
   });
 })();
 
