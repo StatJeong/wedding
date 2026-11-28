@@ -269,16 +269,16 @@ const INFO = {
   ],
 
   // 계좌번호
+  // 계좌번호는 숫자만 (하이픈·띄어쓰기 없이). 복사 버튼은 숫자만 복사합니다.
   accounts: {
     groom: [
-      { who: "신랑 정영두", bank: "OO은행", number: "000-0000-0000" },
-      { who: "아버지 정지명",   bank: "OO은행", number: "000-0000-0000" },
-      { who: "어머니 김소정",   bank: "OO은행", number: "000-0000-0000" }
+      { who: "신랑 정영두",   bank: "KB국민은행", number: "52780201455467" },
+      { who: "어머니 김소정", bank: "KB국민은행", number: "27010104075136" }
     ],
     bride: [
-      { who: "신부 박주은", bank: "OO은행", number: "000-0000-0000" },
-      { who: "아버지 박병철",   bank: "OO은행", number: "000-0000-0000" },
-      { who: "어머니 오은희",   bank: "OO은행", number: "000-0000-0000" }
+      { who: "신부 박주은",   bank: "농협", number: "3561004741213" },
+      { who: "아버지 박병철", bank: "농협", number: "21503352119221" },
+      { who: "어머니 오은희", bank: "농협", number: "21503456035830" }
     ]
   },
 
@@ -397,7 +397,7 @@ function accGroup(title, list){
   const items = list.map(a => `
     <div class="acc-item">
       <div class="acc-info"><div class="who">${a.who}</div><div class="num">${a.bank} ${a.number}</div></div>
-      <button class="copy" data-copy="${a.bank} ${a.number}">복사</button>
+      <button class="copy" data-copy="${a.number.replace(/\D/g, "")}" aria-label="${a.who} 계좌번호 복사">복사</button>
     </div>`).join("");
   return `<div class="acc-group"><button class="acc-head">${title}</button><div class="acc-body">${items}</div></div>`;
 }
